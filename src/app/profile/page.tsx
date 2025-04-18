@@ -11,6 +11,7 @@ export default function ProfilePage() {
   const router = useRouter();
   const [userReviews, setUserReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     // Redirect if not authenticated
@@ -18,8 +19,23 @@ export default function ProfilePage() {
       router.push('/login');
     }
     
-    // Fetch user reviews if authenticated
+    // Fetch user data and reviews if authenticated
     if (status === 'authenticated') {
+      async function fetchUserData() {
+        try {
+          const response = await fetch(`/api/users/${session.user.id}`);
+          
+          if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+          }
+          
+          const data = await response.json();
+          setUserData(data);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+      
       async function fetchUserReviews() {
         try {
           const response = await fetch(`/api/reviews/user/${session.user.id}`);
@@ -37,6 +53,7 @@ export default function ProfilePage() {
         }
       }
       
+      fetchUserData();
       fetchUserReviews();
     }
   }, [status, router, session]);
@@ -83,6 +100,14 @@ export default function ProfilePage() {
             </Link>
           </div>
         </div>
+        
+        {/* Bio Section */}
+        {userData?.bio && (
+          <div className="p-6 border-b">
+            <h2 className="text-xl font-bold mb-3 text-black">About Me</h2>
+            <p className="text-black">{userData.bio}</p>
+          </div>
+        )}
         
         {/* Profile Content */}
         <div className="p-6">
