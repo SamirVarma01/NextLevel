@@ -152,7 +152,7 @@ export default function EditProfilePage() {
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full p-2 border border-gray-300 rounded-md text-black"
             required
           />
         </div>
@@ -164,7 +164,7 @@ export default function EditProfilePage() {
             id="bio"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md h-32"
+            className="w-full p-2 border border-gray-300 rounded-md h-32 text-black"
           />
           <p className="text-sm text-gray-500 mt-1">Briefly tell others about yourself (500 characters max)</p>
         </div>
@@ -173,7 +173,7 @@ export default function EditProfilePage() {
         <div className="flex justify-end gap-3">
           <Link 
             href="/profile"
-            className="py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-100"
+            className="py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-100 text-black"
           >
             Cancel
           </Link>
