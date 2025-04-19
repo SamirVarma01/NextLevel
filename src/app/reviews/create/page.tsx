@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function CreateReviewPage() {
+// Create a separate component for content that uses searchParams
+function CreateReviewContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -316,5 +317,18 @@ export default function CreateReviewPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Main component that wraps the content with Suspense
+export default function CreateReviewPage() {
+  return (
+    <Suspense fallback={
+      <div className="container mx-auto py-12 px-4 text-center">
+        <p className="text-xl">Loading...</p>
+      </div>
+    }>
+      <CreateReviewContent />
+    </Suspense>
   );
 }
