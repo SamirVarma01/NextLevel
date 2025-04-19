@@ -49,7 +49,7 @@ export default function GamesPage() {
   };
 
   // Format date from UNIX timestamp
-  const formatReleaseDate = (timestamp) => {
+  const formatReleaseDate = (timestamp: number | undefined) => {
     if (!timestamp) return 'Unknown';
     return new Date(timestamp * 1000).toLocaleDateString();
   };
