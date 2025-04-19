@@ -3,7 +3,7 @@ import connectToDatabase from '@/lib/mongodb';
 import Review from '@/models/Review';
 import Comment from '@/models/Comment';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 
 // Get a single review by ID
 export async function GET(request, { params }) {
