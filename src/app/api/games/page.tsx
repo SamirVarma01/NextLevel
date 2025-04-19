@@ -30,7 +30,7 @@ export default function GamesPage() {
   }, []);
 
   // Handle search
-  const handleSearch = async (e) => {
+  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (!searchTerm.trim()) return;
