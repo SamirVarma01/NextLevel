@@ -1,5 +1,6 @@
 'use client';
 
+import { uploadUserProfileImage, getProfileImageUrl } from '@/lib/s3-utils';
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -49,15 +50,20 @@ export default function EditProfilePage() {
   };
   
   // Handle image selection
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setProfileImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+      try {
+        // Display local preview
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setImagePreview(reader.result);
+        };
+        reader.readAsDataURL(file);
+        setProfileImage(file);
+      } catch (error) {
+        console.error('Error handling image:', error);
+      }
     }
   };
   
@@ -67,15 +73,20 @@ export default function EditProfilePage() {
     setLoading(true);
     setError('');
     
-    // Create FormData object to handle file upload
-    const formData = new FormData();
-    formData.append('username', username);
-    formData.append('bio', bio);
-    if (profileImage) {
-      formData.append('profileImage', profileImage);
-    }
-    
     try {
+      // First, create FormData for non-image data
+      const formData = new FormData();
+      formData.append('username', username);
+      formData.append('bio', bio);
+      
+      // If a new profile image was selected, upload it to S3
+      let profileImageUrl = userData?.profilePicture;
+      if (profileImage) {
+        profileImageUrl = await uploadUserProfileImage(profileImage, session.user.id);
+        formData.append('profilePicture', profileImageUrl);
+      }
+      
+      // Send form data to API
       const response = await fetch('/api/users/update-profile', {
         method: 'POST',
         body: formData,

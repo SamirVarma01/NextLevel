@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getProfileImageUrl } from '@/lib/s3-utils';
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
@@ -79,8 +80,8 @@ export default function ProfilePage() {
             <div className="flex flex-col md:flex-row items-center gap-6">
               <div className="w-24 h-24 rounded-full overflow-hidden bg-white border-4 border-white">
                 <Image 
-                  src={session.user.profilePicture || '/default-avatar.png'} 
-                  alt={session.user.username}
+                  src={userData?.profilePicture ? getProfileImageUrl(userData.id) : '/default-avatar.png'}  
+                  alt={userData?.username || ''}
                   width={96}
                   height={96}
                 />
