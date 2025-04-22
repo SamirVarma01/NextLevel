@@ -166,7 +166,7 @@ function CreateReviewContent() {
       
       <div className="bg-white shadow-md rounded-lg overflow-hidden mb-6">
         {/* Game Selection Section */}
-        <div className="p-6 border-b">
+        <div className="p-6 border-b text-black">
           <h2 className="text-xl font-bold mb-4 text-black">Step 1: Select a Game</h2>
           
           {selectedGame ? (
