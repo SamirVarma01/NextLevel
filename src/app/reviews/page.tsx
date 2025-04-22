@@ -111,7 +111,7 @@ export default function ReviewsPage() {
                   {/* Review Content */}
                   <div className="md:w-3/4 p-6">
                     <div className="flex items-center justify-between mb-2">
-                      <h2 className="text-xl font-bold">{review.title}</h2>
+                      <h2 className="text-xl font-bold text-black">{review.title}</h2>
                       <div className="px-3 py-1 bg-indigo-600 text-white rounded-full font-bold">
                         {review.rating}/10
                       </div>
