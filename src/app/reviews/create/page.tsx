@@ -170,7 +170,7 @@ function CreateReviewContent() {
           <h2 className="text-xl font-bold mb-4 text-black">Step 1: Select a Game</h2>
           
           {selectedGame ? (
-            <div className="flex items-center mb-4">
+            <div className="flex items-center mb-4 text-black">
               <div className="w-20 h-20 relative mr-4">
                 <Image 
                   src={selectedGame.image} 
@@ -219,7 +219,7 @@ function CreateReviewContent() {
                       <li key={game.id} className="border-t">
                         <button
                           onClick={() => handleSelectGame(game)}
-                          className="w-full p-2 text-left hover:bg-gray-50 flex items-center"
+                          className="w-full p-2 text-left hover:bg-gray-50 flex items-center text-black"
                         >
                           <div className="w-10 h-10 relative mr-2">
                             <Image
